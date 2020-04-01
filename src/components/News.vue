@@ -3,54 +3,68 @@
     <p>Component news - wieści o koronawirusie będą zamieszczane tutaj. Dane pobrane z API ↙️</p>
     <div class="sick">
       Liczba zarażonych osób w polsce to aktualnie:
-      <b>{{this.results}}</b> 🧔🏻
+      <b>{{this.results}}</b>
+      Liczba zgonów:
+      <b>{{this.polandInfo.TotalDeaths}}</b>
+      Liczba uzdrowionych:
+      <b>{{this.polandInfo.TotalRecovered}}</b>
     </div>
-    <div class="try">click me</div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import $ from 'jquery'
 
 const API = "https://api.covid19api.com/";
+const API2 = "https://api.covid19api.com/summary?";
+
 export default {
   name: "News",
   data() {
     return {
-      results: ""
+      results: "",
+      polandInfo: "",
+      country: ""
     };
   },
   created() {
     this.showApi();
   },
-  mounted(){
-    ///próba dodaniea jquery
-  $('.try').click(()=>{
-      console.log('siemano');
-    })
-  },
   methods: {
-    //załadowanie API o coronavirusie i pobranie wartości liczby zarażonych osób
+    //załadowanie API o coronavirusie i pobranie wartości liczby zarażonych osób, liczbie zgonów i uzdrowionych
     showApi() {
+      const one = axios.get(`${API}country/poland/status/confirmed/live`);
+      const two = axios.get(`${API2}`);
+
       axios
-        .get(`${API}country/poland/status/confirmed/live`)
-        .then(response => {
-          console.log(response);
-          // eslint-disable-next-line no-undef
-          this.results = response.data[response.data.length - 1].Cases;
-        })
+        .all([one, two])
+        .then(
+          axios.spread((...responses) => {
+            // eslint-disable-next-line no-undef
+            const responseOne = responses[0];
+            const responseTwo = responses[1];
+
+            this.results = responseOne.data[responseOne.data.length - 1].Cases;
+            var countries = responseTwo.data.Countries;
+            var arr = [];
+            countries.forEach(element => {
+              arr.push(element.Country);
+            });
+            this.polandInfo = countries[arr.indexOf("Poland")];
+          })
+        )
         .catch(error => {
           console.log(error);
         });
-    },
-   
+    }
   }
 };
-
 </script>
 <style  scoped>
 .news {
   background-color: rgb(130, 158, 196);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 </style>
