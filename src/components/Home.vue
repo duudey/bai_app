@@ -18,4 +18,18 @@ export default {
 </script>
 
 <style>
+.homepage{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  float: right;
+  background-color: burlywood;
+  transition: width 1s;
+}
+
+.active{
+  width: 85%;
+  transition: width 1s;
+}
+
 </style>
