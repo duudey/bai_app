@@ -1,21 +1,23 @@
 <template>
     <div>
-        <b-button v-b-modal.loginRegisterModal>{{modalTitle}}</b-button>
+        <b-button v-b-modal.loginRegisterModal>Logowanie</b-button>
+        {{username}}
+        {{email}}
         <b-modal id="loginRegisterModal" title="Logowanie / Rejestracja" centered hide-footer>
-            <b-form-group v-if="signUp"
-                          id="registerEmailGroup"
-                          label="Wprowadź e-mail"
-                          label-for="registerEmailInput">
-                <b-form-input type="email" id="registerEmailInput" v-model="registerEmail" trim></b-form-input>
+            <b-form-group
+                    id="emailGroup"
+                    label="Wprowadź e-mail"
+                    label-for="emailGroupInput">
+                <b-form-input type="email" id="emailGroupInput" v-model="email" trim></b-form-input>
             </b-form-group>
-            <b-form-group v-if="signUp"
-                          id="registerPasswordGroup"
-                          label="Wprowadź hasło"
-                          label-for="registerPasswordInput">
-                <b-form-input type="password" id="registerPasswordInput" v-model="registerPassword" trim></b-form-input>
+            <b-form-group
+                    id="passwordGroup"
+                    label="Wprowadź hasło"
+                    label-for="passwordGroupInput">
+                <b-form-input type="password" id="passwordGroupInput" v-model="password" trim></b-form-input>
             </b-form-group>
-            <b-button v-b-modal.modal-1 block @click="loginOrRegister" class="loginButton">OK</b-button>
-
+            <b-button v-b-modal.modal-1 block @click="login" class="loginButton">Zaloguj się</b-button>
+            <b-button v-b-modal.modal-1 block @click="register" class="loginButton">Zarejestruj się</b-button>
             <hr class="line"/>
 
             <b-button v-b-modal.modal-1 block variant="primary" @click="loginWithGoogle" class="loginButton">Zaloguj się
@@ -37,31 +39,20 @@
         directives: {'b-modal': VBModal},
         data: function () {
             return {
-                registerEmail: "",
-                registerPassword: "",
-                registerUsername: "",
-                loginEmail: "",
-                loginPassword: "",
-                signUp: true
+                email: "",
+                password: "",
+                username: ""
             };
-        },
-        computed: {
-            modalTitle: function () {
-                return this.signUp ? "Zarejestruj się" : "Zaloguj się";
-            }
         },
         methods: {
             getUserNameFromEmail: function (email) {
                 return email.split("@")[0];
             },
-            loginOrRegister: function () {
-                this.signUp ? this.register(this.registerEmail, this.registerPassword, this.getUserNameFromEmail(this.registerEmail)) : this.login(this.loginEmail, this.loginPassword);
-                this.$root.$emit('bv::hide::modal', 'loginRegisterModal');
-            },
-            register: function (email, password, username) {
+            register: function () {
                 firebase
                     .auth()
-                    .createUserWithEmailAndPassword(email, password)
+                    .createUserWithEmailAndPassword(this.email, this.password)
+                    .then(() => this.username = this.getUserNameFromEmail(this.email))
                     .catch(function (error) {
                         alert(error.message);
                     });
@@ -70,7 +61,7 @@
                     if (user) {
                         user
                             .updateProfile({
-                                displayName: username
+                                displayName: this.username
                             })
                             .then(() => {
                             })
@@ -80,21 +71,26 @@
                     }
                 });
                 firebase.auth().signOut();
+                this.$root.$emit('bv::hide::modal', 'loginRegisterModal');
             },
-            login: function (email, password) {
+            login: function () {
                 firebase
                     .auth()
-                    .signInWithEmailAndPassword(email, password)
+                    .signInWithEmailAndPassword(this.email, this.password)
                     .catch(function (error) {
                         alert(error.message);
                     });
+                this.$root.$emit('bv::hide::modal', 'loginRegisterModal');
             },
             loginWithGoogle: function () {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase
                     .auth()
                     .signInWithPopup(provider)
-                    .then()
+                    .then((result) => {
+                        this.email = result.user.email;
+                        this.username = this.getUserNameFromEmail(this.email);
+                    })
                     .catch(function (err) {
                         console.log(err);
                     });
