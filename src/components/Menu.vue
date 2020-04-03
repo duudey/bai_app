@@ -1,43 +1,46 @@
 <template>
     <div class="menu">
-        <div class="menu-list">
-            <ul>
-                <li>
-                    <LoginRegisterModal/>
-                </li>
-                <li>Dodaj Post</li>
-                <li>Zaloguj się</li>
-            </ul>
+        <div class="menuItem">
+            <b-avatar class="mr-3" square v-if="this.$store.state.userHasSession"></b-avatar>
+            <span class="mr-auto" v-if="this.$store.state.userHasSession">{{this.$store.state.username}}</span>
+        </div>
+        <div class="menuItem">
+            <LoginRegisterModal/>
+        </div>
+        <div class="line" v-if="this.$store.state.userHasSession"></div>
+        <div class="menuItem" v-if="this.$store.state.userHasSession">
+            <!-- Component should be here, to decide how we are adding posts -->
+            <b-button>Dodaj post</b-button>
         </div>
     </div>
 </template>
 
 <script>
     import LoginRegisterModal from './LoginRegisterModal.vue';
+    import {BButton, BAvatar} from 'bootstrap-vue';
 
     export default {
         name: 'Menu',
-        components: {LoginRegisterModal}
+        components: {LoginRegisterModal, BButton, BAvatar}
     }
 </script>
 
 <style>
-    .menu-list {
-        background-color: blueviolet;
+    .menu {
+        background-color: rgb(130, 158, 196);
+        height: 100%;
+        width: 10%;
         float: left;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        position: fixed;
-        display: none;
-        width: 15%;
     }
 
-    .menu {
-        width: 30px;
-        float: left;
-        margin: 0;
-        padding: 0;
-        position: fixed;
+    .menuItem {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .line {
+        border-bottom: solid 1px white;
+        width: 80%;
+        display: inline-block;
     }
 </style>

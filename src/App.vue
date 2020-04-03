@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <div class="logo">LOGO - click me to see menu</div>
         <Menu/>
         <Home/>
     </div>
@@ -9,7 +8,6 @@
 <script>
     import Home from './components/Home.vue';
     import Menu from './components/Menu.vue';
-    import $ from 'jquery';
     import * as firebase from "firebase/app";
     import "firebase/auth";
     import "firebase/firestore";
@@ -25,17 +23,9 @@
             Home, Menu
         },
         mounted() {
-            $('.logo').click(() => {
-                $('.menu-list').toggle('display');
-                var homePage = $('.homepage');
-                homePage.toggleClass('active');
-
-
-            });
             Vue.use(BootstrapVue);
             Vue.use(IconsPlugin);
             firebase.initializeApp(firebaseConfig);
-
         }
     }
 </script>
@@ -50,5 +40,7 @@
         padding: 0;
         width: 100%;
         margin-top: 0;
+        height: 100vh;
     }
+
 </style>
