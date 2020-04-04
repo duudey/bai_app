@@ -1,14 +1,14 @@
 <template>
     <div class="news">
-        <p class="newsText">Component news - wieści o koronawirusie będą zamieszczane tutaj. Dane pobrane z API ↙️</p>
-        <div class="sick">
-            <p class="newsText">Liczba zarażonych osób w polsce to aktualnie:
-                <b>{{this.results}}</b>
-                Liczba zgonów:
-                <b>{{this.polandInfo.TotalDeaths}}</b>
-                Liczba uzdrowionych:
-                <b>{{this.polandInfo.TotalRecovered}}</b></p>
-        </div>
+        <p class="newsText" :title="newsTitle">{{newsTitle}}️</p>
+        <p class="newsText"
+           :title="`Zarażeni: ${this.results}, zgony: ${this.polandInfo.TotalDeaths}, uzdrowieni: ${this.polandInfo.TotalRecovered}`">
+            Liczba zarażonych osób w polsce to aktualnie:
+            <b>{{this.results}}</b>
+            Liczba zgonów:
+            <b>{{this.polandInfo.TotalDeaths}}</b>
+            Liczba uzdrowionych:
+            <b>{{this.polandInfo.TotalRecovered}}</b></p>
     </div>
 </template>
 
@@ -24,7 +24,8 @@
             return {
                 results: "",
                 polandInfo: "",
-                country: ""
+                country: "",
+                newsTitle: 'Component news - wieści o koronawirusie będą zamieszczane tutaj. Dane pobrane z API ↙'
             };
         },
         created() {
@@ -63,9 +64,9 @@
 <style scoped>
     .news {
         background-color: rgb(130, 158, 196);
-        position: absolute;
-        bottom: 0;
-        width: 90%;
+        height: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .newsText {

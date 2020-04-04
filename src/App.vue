@@ -26,6 +26,12 @@
             Vue.use(BootstrapVue);
             Vue.use(IconsPlugin);
             firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const usersRef = db.collection("users");
+            const helpersCount = usersRef.where("helper", "==", "true");
+            const seekersCount = usersRef.where("helper", "==", "false");
+            helpersCount.get().then(queryData => this.$store.dispatch('setHelpersCount', queryData.size));
+            seekersCount.get().then(queryData => this.$store.dispatch('setSeekersCount', queryData.size));
         }
     }
 </script>
@@ -40,7 +46,11 @@
         padding: 0;
         width: 100%;
         margin-top: 0;
-        height: 100vh;
+        height: 100%;
+        display: flex;
     }
 
+    html, body {
+        height: 100%;
+    }
 </style>
