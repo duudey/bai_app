@@ -63,9 +63,9 @@
 <style scoped>
     .news {
         background-color: rgb(130, 158, 196);
-        position: fixed;
+        position: absolute;
         bottom: 0;
-        width: 100%;
+        width: 90%;
     }
 
     .newsText {
