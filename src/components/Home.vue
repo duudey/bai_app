@@ -1,12 +1,14 @@
 <template>
     <div class="homepage">
-        <h1> 👋🏼 Witamy w naszej aplikacji, będziemy tutaj pracować</h1>
+        <div class="content">
+            <p><b>Pomaga:</b> {{this.$store.state.helpersCount}} osoba/osoby. <b>Szuka pomocy:</b>
+                {{this.$store.state.seekersCount}} osoba/osoby.</p>
+        </div>
         <News/>
     </div>
 </template>
 
 <script>
-
     import News from './News.vue';
 
     export default {
@@ -19,11 +21,16 @@
 
 <style>
     .homepage {
-        height: 100%;
-        width: 90%;
         background-color: burlywood;
         transition: width 1s;
         float: left;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
+    .content {
+        flex: 1;
+        overflow-y: auto;
+    }
 </style>

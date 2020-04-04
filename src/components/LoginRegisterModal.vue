@@ -1,7 +1,7 @@
 <template>
     <div class="loginRegisterModal">
-        <b-button v-if="!this.$store.state.userHasSession" v-b-modal.loginRegisterModal>Logowanie</b-button>
-        <b-button v-if="this.$store.state.userHasSession" @click="logout">Wyloguj się</b-button>
+        <b-button v-if="!this.$store.state.user.session" v-b-modal.loginRegisterModal>Logowanie</b-button>
+        <b-button v-if="this.$store.state.user.session" @click="logout">Wyloguj się</b-button>
         <b-modal id="loginRegisterModal" title="Logowanie / Rejestracja" centered hide-footer>
             <b-form-group
                     id="emailGroup"
@@ -43,11 +43,6 @@
                 username: ""
             };
         },
-        computed: {
-            userHasSession: function () {
-                return this.$store.state.userHasSession;
-            }
-        },
         methods: {
             getUserNameFromEmail: function (email) {
                 return email.split("@")[0];
@@ -64,10 +59,8 @@
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(this.email, this.password)
-                    .then((result) => {
-                        this.$store.dispatch('setUsername', this.getUserNameFromEmail(result.user.email));
-                        this.$store.dispatch('setSession', true);
-                    })
+                    .then(result => this.setUserData(result))
+
                     .catch(error => alert(error.message));
                 this.$root.$emit('bv::hide::modal', 'loginRegisterModal');
             },
@@ -76,18 +69,30 @@
                 firebase
                     .auth()
                     .signInWithPopup(provider)
-                    .then((result) => {
-                        this.$store.dispatch('setUsername', this.getUserNameFromEmail(result.user.email));
-                        this.$store.dispatch('setSession', true);
-                    })
+                    .then(result => this.setUserData(result))
                     .catch(error => alert(error.message));
                 this.$root.$emit('bv::hide::modal', 'loginRegisterModal');
             },
             logout: function () {
-                firebase.auth().signOut().then(() => {
-                    this.$store.dispatch('setUsername', '');
-                    this.$store.dispatch('setSession', false);
-                })
+                firebase.auth().signOut().then(() => this.$store.dispatch('deleteUserData'));
+            },
+            setUserData: function (result) {
+                this.$store.dispatch('setUserData', {
+                    username: this.getUserNameFromEmail(result.user.email),
+                    email: result.user.email,
+                    session: true
+                });
+                const userRef = firebase.firestore().collection('users').doc(result.user.email);
+                userRef.get().then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        this.$store.dispatch('setAddress', {city: data.city, street: data.street});
+                        this.$store.dispatch('setHelper', data.helper);
+                    }
+                }).then(() => this.$forceUpdate()).catch(error => alert(error.message));
+            },
+            setAddress: function () {
+
             }
         },
     };

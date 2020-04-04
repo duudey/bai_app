@@ -5,23 +5,66 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        username: '',
-        userHasSession: false
+        user: {
+            username: '',
+            email: '',
+            session: false
+        },
+        address: {
+            city: '',
+            street: ''
+        },
+        helper: 'false',
+        helpersCount: '',
+        seekersCount: ''
     },
     mutations: {
-        setUsername(state, username) {
-            state.username = username;
+        setUserData(state, user) {
+            state.user = user;
         },
-        setSession(state, hasSession) {
-            state.userHasSession = hasSession;
+        setAddress(state, address) {
+            state.address = address;
+        },
+        setHelper(state, helper) {
+            state.helper = helper;
+        },
+        deleteUserData(state) {
+            state.user = {
+                username: '',
+                email: '',
+                session: false
+            };
+            state.address = {
+                city: '',
+                street: ''
+            };
+            state.helper = 'false';
+        },
+        setHelpersCount(state, helpersCount) {
+            state.helpersCount = helpersCount;
+        },
+        setSeekersCount(state, seekersCount) {
+            state.seekersCount = seekersCount;
         }
     },
     actions: {
-        setUsername(context, username) {
-            context.commit('setUsername', username)
+        setUserData(context, user) {
+            context.commit('setUserData', user)
         },
-        setSession(context, hasSession) {
-            context.commit('setSession', hasSession)
+        setAddress(context, address) {
+            context.commit('setAddress', address)
+        },
+        setHelper(context, helper) {
+            context.commit('setHelper', helper);
+        },
+        setHelpersCount(context, helpers) {
+            context.commit('setHelpersCount', helpers);
+        },
+        setSeekersCount(context, seekers) {
+            context.commit('setSeekersCount', seekers);
+        },
+        deleteUserData(context) {
+            context.commit('deleteUserData');
         }
     }
 });
