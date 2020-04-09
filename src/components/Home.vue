@@ -4,17 +4,19 @@
             <p><b>Pomaga:</b> {{this.$store.state.helpersCount}} osoba/osoby. <b>Szuka pomocy:</b>
                 {{this.$store.state.seekersCount}} osoba/osoby.</p>
         </div>
+        <Board/>
         <News/>
     </div>
 </template>
 
 <script>
     import News from './News.vue';
+    import Board from './Board.vue';
 
     export default {
         name: 'Home',
         components: {
-            News
+            News, Board
         }
     };
 </script>

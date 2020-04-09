@@ -12,7 +12,7 @@
         </div>
         <div class="line" v-if="this.$store.state.user.session"></div>
         <div class="menuItem" v-if="this.$store.state.user.session">
-            <addPostModal v-bind:title="title"/> <!-- test props-->
+            <addPostModal/> <!-- test props-->
             <!-- Component should be here, to decide how we are adding posts -->  
         </div>
     </div>
@@ -29,7 +29,7 @@
         components: {LoginRegisterModal, BAvatar, ProfileModal, addPostModal},
         data(){
             return{
-                title: 'chuj'
+                
             }
         }
     }
