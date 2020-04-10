@@ -12,20 +12,26 @@
         </div>
         <div class="line" v-if="this.$store.state.user.session"></div>
         <div class="menuItem" v-if="this.$store.state.user.session">
-            <!-- Component should be here, to decide how we are adding posts -->
-            <b-button>Dodaj post</b-button>
+            <addPostModal/> <!-- test props-->
+            <!-- Component should be here, to decide how we are adding posts -->  
         </div>
     </div>
 </template>
 
 <script>
     import LoginRegisterModal from './LoginRegisterModal.vue';
-    import {BButton, BAvatar} from 'bootstrap-vue';
+    import {BAvatar} from 'bootstrap-vue';
     import ProfileModal from "./ProfileModal";
+    import addPostModal from "./addPostModal";
 
     export default {
         name: 'Menu',
-        components: {LoginRegisterModal, BButton, BAvatar, ProfileModal}
+        components: {LoginRegisterModal, BAvatar, ProfileModal, addPostModal},
+        data(){
+            return{
+                
+            }
+        }
     }
 </script>
 
