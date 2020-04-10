@@ -3,8 +3,8 @@
         <div class="content">
             <p><b>Pomaga:</b> {{this.$store.state.helpersCount}} osoba/osoby. <b>Szuka pomocy:</b>
                 {{this.$store.state.seekersCount}} osoba/osoby.</p>
+            <Board/>
         </div>
-        <Board/>
         <News/>
     </div>
 </template>
