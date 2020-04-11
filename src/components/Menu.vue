@@ -12,7 +12,7 @@
         </div>
         <div class="line" v-if="this.$store.state.user.session"></div>
         <div class="menuItem" v-if="this.$store.state.user.session">
-            <addPostModal/> <!-- test props-->
+            <PostModal/> 
             <!-- Component should be here, to decide how we are adding posts -->  
         </div>
     </div>
@@ -22,11 +22,11 @@
     import LoginRegisterModal from './LoginRegisterModal.vue';
     import {BAvatar} from 'bootstrap-vue';
     import ProfileModal from "./ProfileModal";
-    import addPostModal from "./addPostModal";
+    import PostModal from "./PostModal";
 
     export default {
         name: 'Menu',
-        components: {LoginRegisterModal, BAvatar, ProfileModal, addPostModal},
+        components: {LoginRegisterModal, BAvatar, ProfileModal, PostModal},
         data(){
             return{
                 
@@ -37,7 +37,7 @@
 
 <style>
     .menu {
-        background-color: rgb(130, 158, 196);
+        background-color: rgb(155, 155, 155);
         height: 100%;
         width: 200px;
         float: left;

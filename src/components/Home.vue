@@ -23,7 +23,7 @@
 
 <style>
     .homepage {
-        background-color: burlywood;
+        background-color: rgb(190, 190, 190);
         transition: width 1s;
         float: left;
         flex: 1;

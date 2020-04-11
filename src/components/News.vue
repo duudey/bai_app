@@ -1,6 +1,5 @@
 <template>
     <div class="news">
-        <p class="newsText" :title="newsTitle">{{newsTitle}}️</p>
         <p class="newsText"
            :title="`Zarażeni: ${this.results}, zgony: ${this.polandInfo.TotalDeaths}, uzdrowieni: ${this.polandInfo.TotalRecovered}`">
             Liczba zarażonych osób w polsce to aktualnie:
@@ -25,7 +24,7 @@
                 results: "",
                 polandInfo: "",
                 country: "",
-                newsTitle: 'Component news - wieści o koronawirusie będą zamieszczane tutaj. Dane pobrane z API ↙'
+
             };
         },
         created() {
@@ -63,8 +62,7 @@
 </script>
 <style scoped>
     .news {
-        background-color: rgb(130, 158, 196);
-        height: 50px;
+        background-color: rgb(155, 155, 155);
         overflow: hidden;
         text-overflow: ellipsis;
     }
