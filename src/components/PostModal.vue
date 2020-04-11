@@ -11,7 +11,7 @@
 import { BButton } from 'bootstrap-vue';
 
 export default {
-  name: "addPostModal",
+  name: "PostModal",
   components: {BButton},
   methods: {
     showModal() {
