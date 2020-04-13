@@ -3,7 +3,7 @@
     <b-container class="bv-example-row">
       <b-row class="text-center"> <!-- starczy wrzucić jsona w miejsce result i powinno banglać -->
         <b-col v-for="item in result" :key="item" class="m-1">
-          <div id="box" class="row align-items-center p-2">
+          <div v-bind:class="'box box-'+item.id" class="row align-items-center p-2">
             <div class="col">
             <div id="name">{{item.name}}</div>
             <div id="category">{{item.category}}</div>
@@ -38,7 +38,7 @@ export default {
             { product: "chleb", amount: 2, id: "ds321343" },
             { product: "ser kozi", amount: 43, id: "ds940390934" }
           ],
-          id: 1
+          id: 1,
         },
         {
           name: "Dominik Malcharczyk",
@@ -56,23 +56,12 @@ export default {
     BRow,
     BContainer,
     BCol
-  },
-  methods:{
-    addId(){
-      var boxes = document.querySelectorAll('#box');
-      for(let i =0;i<boxes.lenght;i++){
-        boxes[i].id = 'box-' + i;
-      }
-    }
-  },
-  created(){
-    this.addId()
   }
 };
 </script>
 
 <style>
-#box{
+.box{
   background-color: rgb(255, 255, 255);
   width: 100%;
   border-radius: 16px;
