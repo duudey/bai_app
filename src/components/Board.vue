@@ -3,7 +3,7 @@
     <b-container class="bv-example-row">
       <b-row class="text-center"> <!-- starczy wrzucić jsona w miejsce result i powinno banglać -->
         <b-col v-for="item in result" :key="item" class="m-1">
-          <div id="box" class="row align-items-center p-2">
+          <div v-bind:class="'box box-'+item.id" class="row align-items-center p-2">
             <div class="col">
             <div id="name">{{item.name}}</div>
             <div id="category">{{item.category}}</div>
@@ -24,6 +24,7 @@
 
 <script>
 import { BRow, BContainer, BCol} from "bootstrap-vue";
+import $ from 'jquery';
 
 export default {
   name: "Board",
@@ -59,20 +60,19 @@ export default {
   },
   methods:{
     addId(){
-      var boxes = document.querySelectorAll('#box');
-      for(let i =0;i<boxes.lenght;i++){
-        boxes[i].id = 'box-' + i;
-      }
+      $('#box').each(()=>{
+        $(this).attr('id', this.result.id)
+      })
     }
   },
   created(){
-    this.addId()
-  }
+    this.addId();
+  },
 };
 </script>
 
 <style>
-#box{
+.box{
   background-color: rgb(255, 255, 255);
   width: 100%;
   border-radius: 16px;
