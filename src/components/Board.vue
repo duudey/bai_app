@@ -24,7 +24,6 @@
 
 <script>
 import { BRow, BContainer, BCol} from "bootstrap-vue";
-import $ from 'jquery';
 
 export default {
   name: "Board",
@@ -39,7 +38,7 @@ export default {
             { product: "chleb", amount: 2, id: "ds321343" },
             { product: "ser kozi", amount: 43, id: "ds940390934" }
           ],
-          id: 1
+          id: 1,
         },
         {
           name: "Dominik Malcharczyk",
@@ -57,17 +56,7 @@ export default {
     BRow,
     BContainer,
     BCol
-  },
-  methods:{
-    addId(){
-      $('#box').each(()=>{
-        $(this).attr('id', this.result.id)
-      })
-    }
-  },
-  created(){
-    this.addId();
-  },
+  }
 };
 </script>
 
