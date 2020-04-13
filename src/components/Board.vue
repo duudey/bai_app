@@ -11,7 +11,11 @@
             <div v-for="el in item.basket" :key="el">{{el.product}}: {{el.amount}}</div>
             <div class="row pt-2">
               <div class="col">
-            <a href="#" class="card-link">Click to see details</a>
+            <b-button v-b-modal="'postModal-'+item.id" class="btn btn-sm">Click to see details</b-button>
+            
+            <b-modal v-bind:id="'postModal-'+item.id" v-bind:title="'Prośba o pomoc nr: '+item.id">
+            <p><b>{{item.name}}</b> Potrzebuje pomocy:</p>
+            </b-modal>
             </div>
             </div>
             </div>
@@ -38,7 +42,7 @@ export default {
             { product: "chleb", amount: 2, id: "ds321343" },
             { product: "ser kozi", amount: 43, id: "ds940390934" }
           ],
-          id: 1,
+          id: 2,
         },
         {
           name: "Dominik Malcharczyk",
@@ -47,7 +51,7 @@ export default {
             { product: "komputer", amount: 1, id: "ds2133123" },
             { product: "myszka", amount: 3, id: "ds321343" }
           ],
-          id: 2
+          id: 23,
         },
       ]
     };
