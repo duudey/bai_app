@@ -33,14 +33,15 @@
 </template>
 
 <script>
-import { BRow, BContainer, BCol , BButton, VBModal} from "bootstrap-vue";
+import { BRow, BContainer, BCol , BButton, VBModal, BModal} from "bootstrap-vue";
 
 export default {
   name: 'Board',
    components: {
     BRow,
     BContainer,
-    BCol, BButton,
+    BCol, BButton, 
+    'b-modal': BModal,
   },
   directives: {'b-modal': VBModal},
   data() {
