@@ -62,9 +62,9 @@ export default {
           name: "Paweł Lula",
           category: "Wypieki",
           basket: [
-            { product: "ser", amount: 32, id: "ds2133123" },
-            { product: "chleb", amount: 2, id: "ds321343" },
-            { product: "ser kozi", amount: 43, id: "ds940390934" }
+            { product: "ser", amount: 32},
+            { product: "chleb", amount: 2},
+            { product: "ser kozi", amount: 43 }
           ],
           adress: "Ursyniowska 23, Rybnik",
           id: 2
@@ -76,7 +76,8 @@ export default {
             { product: "komputer", amount: 1, id: "ds2133123" },
             { product: "myszka", amount: 3, id: "ds321343" }
           ],
-          adress: "Mariańska 4A, Poznań",
+          street: "Mariańska 4A",
+          city: "Poznań",
           id: 23
         },
       ],

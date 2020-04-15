@@ -12,7 +12,7 @@
         </div>
         <div class="line" v-if="this.$store.state.user.session"></div>
         <div class="menuItem" v-if="this.$store.state.user.session">
-            <PostModal/> 
+            <PostModal :username="this.$store.state.user.username"/> 
             <!-- Component should be here, to decide how we are adding posts -->  
         </div>
     </div>
