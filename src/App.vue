@@ -32,6 +32,17 @@
             const seekersCount = usersRef.where("helper", "==", "false");
             helpersCount.get().then(queryData => this.$store.dispatch('setHelpersCount', queryData.size));
             seekersCount.get().then(queryData => this.$store.dispatch('setSeekersCount', queryData.size));
+            firebase.firestore().collection("needs")
+                .get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(doc => {
+                        let item = doc.data();
+                        this.$store.dispatch('addPost', item);
+                    });
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                });
         }
     }
 </script>

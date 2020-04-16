@@ -16,7 +16,8 @@ export default new Vuex.Store({
         },
         helper: 'false',
         helpersCount: '',
-        seekersCount: ''
+        seekersCount: '',
+        posts: []
     },
     mutations: {
         setUserData(state, user) {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
         },
         setSeekersCount(state, seekersCount) {
             state.seekersCount = seekersCount;
+        },
+        addPost(state, post) {
+            state.posts.push(post);
         }
     },
     actions: {
@@ -65,6 +69,9 @@ export default new Vuex.Store({
         },
         deleteUserData(context) {
             context.commit('deleteUserData');
+        },
+        addPost(context, post) {
+            context.commit('addPost', post);
         }
     }
 });
