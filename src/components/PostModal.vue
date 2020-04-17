@@ -1,7 +1,7 @@
 <template>
     <div class="addPostModal">
         <!-- Using modifiers -->
-        <b-button v-b-modal.postModal>Dodaj post</b-button>
+        <b-button v-b-modal.postModal block>Dodaj post</b-button>
         <!-- The modal -->
         <b-modal id="postModal" title="Wypełnij pola i daj sobie pomóc 😊" @ok="onSubmit">
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -81,11 +81,11 @@
                 productsCount: 1,
                 options: [
                     {value: null, text: "Wybierz kategorię"},
-                    {value: "Produkty spożywcze", text: "Produkty spożywcze"},
-                    {value: "Środki czystości", text: "Środki czystości"},
-                    {value: "Alkohol", text: "Alkohol"},
-                    {value: "Technologia", text: "Technologia"},
-                    {value: "Edukacja", text: "Edukacja"}
+                    {value: "PS", text: "Produkty spożywcze"},
+                    {value: "SC", text: "Środki czystości"},
+                    {value: "AL", text: "Alkohol"},
+                    {value: "TC", text: "Technologia"},
+                    {value: "ED", text: "Edukacja"}
                 ],
             };
         },
@@ -104,11 +104,11 @@
         directives: {"b-modal": VBModal},
         methods: {
             onSubmit() {
-                console.log("hello");
                 if (this.form.category && this.form.basket.some(item => item.product && item.amount)) {
                     const db = firebase.firestore();
                     const need = {
                         ...this.form,
+                        basket: this.form.basket.filter(item => item.product || item.amount),
                         street: this.$store.state.address.street,
                         city: this.$store.state.address.city,
                         user: this.$store.state.user.email,
