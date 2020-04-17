@@ -16,6 +16,8 @@
     import {BootstrapVue, IconsPlugin} from 'bootstrap-vue';
     import 'bootstrap/dist/css/bootstrap.css';
     import 'bootstrap-vue/dist/bootstrap-vue.css';
+    import SimpleGDPR from 'simple-gdpr';
+    import 'simple-gdpr/dist/simplegdpr.min.css';
 
     export default {
         name: 'App',
@@ -43,6 +45,15 @@
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
                 });
+            new SimpleGDPR({
+                title: 'Polityka danych',
+                message: 'Zakładając konto zgadzasz się na przechowywanie oraz udostępnianie twojego adresu e-mail, oraz ulicy / dzielnicy i miasta które możesz uzupełnić w profilu. ' +
+                    'Celem usunięcia danych skontaktuj się z administracją strony: github.com/afternun',
+                id: {button: 'gdprButton'}
+            });
+
+            document.getElementById('gdprButton').innerText = "Zgadzam się";
+
         }
     }
 </script>
