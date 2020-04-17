@@ -1,6 +1,6 @@
 <template>
     <div class="profileModal">
-        <b-button v-if="this.$store.state.user.session" v-b-modal.profileModal>Profil</b-button>
+        <b-button v-if="this.$store.state.user.session" v-b-modal.profileModal block>Profil</b-button>
         <b-modal id="profileModal" title="Profil" centered hide-footer>
             <b-form-group
                     id="emailGroup"

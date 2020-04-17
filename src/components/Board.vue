@@ -2,11 +2,12 @@
     <div>
         <b-container class="bv-example-row">
             <b-row class="text-center">
-                <b-col cols="3" v-for="(item, idx) in this.$store.state.posts" :key="idx" class="m-1">
+                <b-col cols="3" v-for="(item, idx) in this.$store.state.displayedPosts" :key="idx" class="m-1">
                     <div v-bind:class="'box box-'+item.id" class="row align-items-center p-2">
                         <div class="col">
                             <div id="name">{{item.user.split("@")[0]}}</div>
-                            <div id="category">{{item.category}}</div>
+                            <div id="category">{{categories.find(category => category.value === item.category).text}}
+                            </div>
                             <div class="text-left">
                                 <b>Potrzebuję:</b>
                                 <div v-for="(el, idx) in item.basket" :key="idx">{{el.product}}: {{el.amount}}</div>
@@ -53,6 +54,17 @@
             BCol,
             BButton,
             "b-modal": BModal
+        },
+        data() {
+            return {
+                categories: [
+                    {value: "PS", text: "Produkty spożywcze"},
+                    {value: "SC", text: "Środki czystości"},
+                    {value: "AL", text: "Alkohol"},
+                    {value: "TC", text: "Technologia"},
+                    {value: "ED", text: "Edukacja"}
+                ]
+            }
         },
         directives: {"b-modal": VBModal}
     };

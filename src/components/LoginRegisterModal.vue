@@ -1,7 +1,7 @@
 <template>
     <div class="loginRegisterModal">
-        <b-button v-if="!this.$store.state.user.session" v-b-modal.loginRegisterModal>Logowanie</b-button>
-        <b-button v-if="this.$store.state.user.session" @click="logout">Wyloguj się</b-button>
+        <b-button v-if="!this.$store.state.user.session" v-b-modal.loginRegisterModal block>Logowanie</b-button>
+        <b-button v-if="this.$store.state.user.session" @click="logout" block>Wyloguj się</b-button>
         <b-modal id="loginRegisterModal" title="Logowanie / Rejestracja" centered hide-footer>
             <b-form-group
                     id="emailGroup"
