@@ -17,7 +17,16 @@ export default new Vuex.Store({
         helper: 'false',
         helpersCount: '',
         seekersCount: '',
-        posts: []
+        posts: [],
+        displayedPosts: [],
+        categories: [
+            {value: "PS", text: "Produkty spożywcze"},
+            {value: "SC", text: "Środki czystości"},
+            {value: "AL", text: "Alkohol"},
+            {value: "TC", text: "Technologia"},
+            {value: "ED", text: "Edukacja"}
+        ],
+        chosenCategories: ["PS", "SC", "AL", "TC", "ED"]
     },
     mutations: {
         setUserData(state, user) {
@@ -49,6 +58,13 @@ export default new Vuex.Store({
         },
         addPost(state, post) {
             state.posts.push(post);
+            state.displayedPosts = state.posts;
+        },
+        filterByCity(state, city) {
+            state.displayedPosts = state.posts.filter(post => post.city.toUpperCase().search(city.toUpperCase()) >= 0);
+        },
+        filterByCategories(state, categories) {
+            state.displayedPosts = state.posts.filter(post => categories.includes(post.category))
         }
     },
     actions: {
@@ -72,6 +88,12 @@ export default new Vuex.Store({
         },
         addPost(context, post) {
             context.commit('addPost', post);
+        },
+        filterByCity(context, city) {
+            context.commit('filterByCity', city);
+        },
+        filterByCategories(context, categories) {
+            context.commit('filterByCategories', categories);
         }
     }
 });
